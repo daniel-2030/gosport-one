@@ -1,23 +1,19 @@
     <x-app-layout>
-<x-slot name="header"><br>
-    <br>
-    <div class="flex items-center gap-4">
-        <!-- Logo -->
-        <img src="{{ asset('imagenes/Logo_Gosport.jpeg') }}" alt="Logo" class="h-12 rounded">
-
-        <!-- Título -->
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            {{ __('Crear usuario') }}
-        </h2>
-    </div>
-</x-slot>
-
+<br>
+<br>
+<br>
+<br>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-8">
                         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                             <div class="bg-white p-6 shadow sm:rounded-lg">
+                        <div class="flex items-center justify-center gap-4">
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+                            {{ __('Crear Usuarios') }}
+                        </h2>
+                    </div>
 
                                 {{-- FORMULARIO --}}
                                 <form action="{{ route('usuarios.store') }}" method="POST" class="space-y-6">

@@ -8,9 +8,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div style="padding:16px">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ __('Tabla Ligas') }}
-                    </h2>
+                    <div class="flex items-center justify-center gap-4">
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+                            {{ __('Tabla Usuarios') }}
+                        </h2>
+                    </div>
                     <br>
                     <p>
                         <a href="{{ route('ligas.create') }}">+ Nueva Liga</a>
