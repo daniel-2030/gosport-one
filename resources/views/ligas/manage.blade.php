@@ -1,48 +1,46 @@
 <x-app-layout>
-<x-slot name="header"><br>
-<br>
-    <div class="flex items-center gap-4">
-        <img src="{{ asset('imagenes/Logo_Gosport.jpeg') }}" id="img" alt="Logo" class="h-12">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tabla Usuarios') }}
-        </h2>
-    </div>
-</x-slot>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div style="padding:16px">
-
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ __('Tabla Ligas') }}
+                    </h2>
+                    <br>
                     <p>
-                        <a href="{{ route('usuarios.create') }}">➕ Nuevo Usuario</a>
+                        <a href="{{ route('ligas.create') }}">+ Nueva Liga</a>
                     </p>
 
                     @if (session('ok'))
                         <p style="color:green">{{ session('ok') }}</p>
                     @endif
 
-                    <table id="usuarios" class="display" style="width:100%">
+                    <table id="ligas" class="display" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
+                                <th>Descripción</th>
+                                <th>Temporada</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($usuarios as $e)
+                            @foreach ($ligas as $liga)
                                 <tr>
-                                    <td>{{ $e->nombre }}</td>
-                                    <td>{{ $e->email }}</td>
-                                    <td>{{ $e->telefono }}</td>
+                                    <td>{{ $liga->nombre }}</td>
+                                    <td>{{ $liga->descripcion }}</td>
+                                    <td>{{ $liga->temporada->categoria }}</td>
                                     <td>
-                                        <a href="{{ route('usuarios.edit', $e) }}">✏️ Editar</a>
-                                        <form action="{{ route('usuarios.destroy', $e) }}" 
+                                        <a href="{{ route('ligas.edit', $liga) }}">✏️ Editar</a>
+                                        <form action="{{ route('ligas.destroy', $liga) }}" 
                                               method="POST" 
                                               style="display:inline" 
-                                              onsubmit="return confirm('¿Eliminar este usuario?')">
+                                              onsubmit="return confirm('¿Eliminar esta liga?')">
                                             @csrf 
                                             @method('DELETE')
                                             <button type="submit">🗑️ Eliminar</button>
@@ -72,10 +70,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-
     <script>
         $(function() {
-            $('#usuarios').DataTable({
+            $('#ligas').DataTable({
                 pageLength: 20,
                 dom: 'Bfrtip',
                 language: {
@@ -86,41 +83,40 @@
         });
     </script>
 
+    <style>
+        body {
+            background-color: #32373dff !important;
+            color: white;
+        }
+        
+        img{
+            width: 50px;
+            height: 50px;
+        }
 
-<style>
-    body {
-        background-color: #32373dff !important; /* negro absoluto */
-        color: white; /* texto blanco para contraste */
-    }
-    
-    img{
-        width: 50px;
-        height: 50px;
-    }
-    /* Opcional: Cambiar fondo de los contenedores a negro */
-    .bg-white {
-        background-color: #32373dff !important;
-    }
+        .bg-white {
+            background-color: #32373dff !important;
+        }
 
-    .text-gray-800 {
-        color: #fff !important;
-    }
+        .text-gray-800 {
+            color: #fff !important;
+        }
 
-    /* Quitar el hover/resaltado de las filas */
-    table.dataTable tbody tr:hover {
-        background-color: transparent !important;
-    }
+        /* Quitar el hover/resaltado de las filas */
+        table.dataTable tbody tr:hover {
+            background-color: transparent !important;
+        }
 
-    table.dataTable.hover tbody tr:hover,
-    table.dataTable.display tbody tr:hover {
-        background-color: transparent !important;
-    }
+        table.dataTable.hover tbody tr:hover,
+        table.dataTable.display tbody tr:hover {
+            background-color: transparent !important;
+        }
 
-    /* Quitar el resaltado de las filas seleccionadas */
-    table.dataTable tbody tr.selected,
-    table.dataTable tbody tr.selected:hover {
-        background-color: transparent !important;
-    }
-</style>
+        /* Quitar el resaltado de las filas seleccionadas */
+        table.dataTable tbody tr.selected,
+        table.dataTable tbody tr.selected:hover {
+            background-color: transparent !important;
+        }
+    </style>
 
 </x-app-layout>
