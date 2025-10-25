@@ -1,28 +1,30 @@
 <x-app-layout>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br><br><br><br><br>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div style="padding:16px">
-                    <div class="flex items-center justify-center gap-4">
-                        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
-                            {{ __('Tabla Usuarios') }}
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <h2 class="font-semibold text-2xl text-gray-800 leading-tight text-center">
+                            🏆 Gestión de Ligas
                         </h2>
                     </div>
-                    <br>
-                    <p>
-                        <a href="{{ route('ligas.create') }}">+ Nueva Liga</a>
+
+                    <p class="mb-4 text-center">
+                        <a href="{{ route('ligas.create') }}" 
+                           class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500 transition">
+                           + Nueva Liga
+                        </a>
                     </p>
 
                     @if (session('ok'))
-                        <p style="color:green">{{ session('ok') }}</p>
+                        <div class="bg-green-600 text-white text-center py-2 rounded mb-4">
+                            {{ session('ok') }}
+                        </div>
                     @endif
 
-                    <table id="ligas" class="display" style="width:100%">
+                    <table id="ligas" class="display w-full text-white">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -36,16 +38,22 @@
                                 <tr>
                                     <td>{{ $liga->nombre }}</td>
                                     <td>{{ $liga->descripcion }}</td>
-                                    <td>{{ $liga->temporada->categoria }}</td>
+                                    <td>{{ $liga->temporada->nombre ?? 'Sin temporada' }}</td>
                                     <td>
-                                        <a href="{{ route('ligas.edit', $liga) }}">✏️ Editar</a>
-                                        <form action="{{ route('ligas.destroy', $liga) }}" 
+                                        {{-- 🔧 CORREGIDO: Asegura que pasa el ID correctamente --}}
+                                        <a href="{{ route('ligas.edit', $liga->id_liga) }}" 
+                                           class="text-blue-400 hover:underline">✏️ Editar</a>
+
+                                        <form action="{{ route('ligas.destroy', $liga->id_liga) }}" 
                                               method="POST" 
                                               style="display:inline" 
                                               onsubmit="return confirm('¿Eliminar esta liga?')">
                                             @csrf 
                                             @method('DELETE')
-                                            <button type="submit">🗑️ Eliminar</button>
+                                            <button type="submit" 
+                                                    class="text-red-500 hover:underline bg-transparent border-none cursor-pointer">
+                                                🗑️ Eliminar
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -90,8 +98,8 @@
             background-color: #32373dff !important;
             color: white;
         }
-        
-        img{
+
+        img {
             width: 50px;
             height: 50px;
         }
@@ -118,6 +126,10 @@
         table.dataTable tbody tr.selected,
         table.dataTable tbody tr.selected:hover {
             background-color: transparent !important;
+        }
+
+        a.bg-indigo-600 {
+            text-decoration: none;
         }
     </style>
 

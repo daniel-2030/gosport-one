@@ -1,110 +1,211 @@
-    <x-app-layout>
-<br>
-<br>
-<br>
-<br>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="py-8">
-                        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-                            <div class="bg-white p-6 shadow sm:rounded-lg">
-                        <div class="flex items-center justify-center gap-4">
-                        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
-                            {{ __('Crear Usuarios') }}
-                        </h2>
-                    </div>
+   <x-app-layout>
+    <div class="py-12" style="padding-top: 6rem;">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="py-8">
+                    <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white p-6 shadow sm:rounded-lg">
+                            
+                            <div class="flex items-center justify-center gap-4 mb-6">
+                                <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+                                    {{ __('Crear Usuario') }}
+                                </h2>
+                            </div>
 
-                                {{-- FORMULARIO --}}
-                                <form action="{{ route('usuarios.store') }}" method="POST" class="space-y-6">
-                                    @csrf
+                            {{-- FORMULARIO --}}
+                            <form action="{{ route('usuarios.store') }}" method="POST" class="space-y-6">
+                                @csrf
 
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    
                                     {{-- Nombre --}}
                                     <div>
-                                        <label for="nombre" class="block font-medium">Nombre</label>
-                                        <input type="text" name="nombre" id="nombre" 
-                                            value="{{ old('nombre') }}"
-                                            class="w-full border rounded px-3 py-2">
+                                        <label for="nombre" class="block text-sm font-medium mb-1">
+                                            Nombre *
+                                        </label>
+                                        <input type="text" 
+                                               name="nombre" 
+                                               id="nombre" 
+                                               value="{{ old('nombre') }}"
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                               required>
                                         @error('nombre')
-                                            <span class="text-red-600 text-sm">{{ $message }}</span>
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Apellidos --}}
+                                    <div>
+                                        <label for="apellidos" class="block text-sm font-medium mb-1">
+                                            Apellidos
+                                        </label>
+                                        <input type="text" 
+                                               name="apellidos" 
+                                               id="apellidos" 
+                                               value="{{ old('apellidos') }}"
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                                        @error('apellidos')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
 
                                     {{-- Correo --}}
                                     <div>
-                                        <label for="email" class="block font-medium">Correo</label>
-                                        <input type="email" name="email" id="email" 
-                                            value="{{ old('email') }}"
-                                            class="w-full border rounded px-3 py-2">
-                                        @error('email')
-                                            <span class="text-red-600 text-sm">{{ $message }}</span>
+                                        <label for="correo" class="block text-sm font-medium mb-1">
+                                            Correo Electrónico *
+                                        </label>
+                                        <input type="email" 
+                                               name="correo" 
+                                               id="correo" 
+                                               value="{{ old('correo') }}"
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                               required>
+                                        @error('correo')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
 
                                     {{-- Contraseña --}}
                                     <div>
-                                        <label for="password" class="block font-medium">Contraseña</label>
-                                        <input type="password" name="password" id="password" 
-                                            class="w-full border rounded px-3 py-2">
-                                        @error('password')
-                                            <span class="text-red-600 text-sm">{{ $message }}</span>
+                                        <label for="contraseña" class="block text-sm font-medium mb-1">
+                                            Contraseña *
+                                        </label>
+                                        <input type="password" 
+                                               name="contraseña" 
+                                               id="contraseña" 
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                               required>
+                                        @error('contraseña')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
 
                                     {{-- Teléfono --}}
                                     <div>
-                                        <label for="telefono" class="block font-medium">Teléfono</label>
-                                        <input type="text" name="telefono" maxlength="10" pattern="[0-9]{6,10}" id="telefono" 
-                                            value="{{ old('telefono') }}"
-                                            class="w-full border rounded px-3 py-2">
+                                        <label for="telefono" class="block text-sm font-medium mb-1">
+                                            Teléfono
+                                        </label>
+                                        <input type="text" 
+                                               name="telefono" 
+                                               id="telefono" 
+                                               maxlength="10" 
+                                               pattern="[0-9]{6,10}"
+                                               value="{{ old('telefono') }}"
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500">
                                         @error('telefono')
-                                            <span class="text-red-600 text-sm">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-
-                                    {{-- BOTONES --}}
-                                    <div class="pt-4 flex gap-3">                                    
-                                        <button type="submit" 
-                                            class="px-4 py-2 border rounded bg-gray-400 text-white hover:bg-gray-500">
-                                            Guardar
-                                        </button>
-
-                                        <a href="{{ route('usuarios.index') }}"
-                                            class="px-4 py-2 border rounded bg-gray-400 text-white hover:bg-gray-500">
-                                            Cancelar
-                                        </a>
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                </form>
-                                {{-- FIN FORMULARIO --}}
 
-                            </div>
+                                    {{-- Tipo de Documento --}}
+                                    <div>
+                                        <label for="Tipo_Doc" class="block text-sm font-medium mb-1">
+                                            Tipo de Documento
+                                        </label>
+                                        <select name="Tipo_Doc" 
+                                                id="Tipo_Doc" 
+                                                class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                                            <option value="">Seleccione...</option>
+                                            <option value="CC" {{ old('Tipo_Doc') == 'CC' ? 'selected' : '' }}>
+                                                Cédula de Ciudadanía
+                                            </option>
+                                            <option value="TI" {{ old('Tipo_Doc') == 'TI' ? 'selected' : '' }}>
+                                                Tarjeta de Identidad
+                                            </option>
+                                            <option value="CE" {{ old('Tipo_Doc') == 'CE' ? 'selected' : '' }}>
+                                                Cédula de Extranjería
+                                            </option>
+                                            <option value="PAS" {{ old('Tipo_Doc') == 'PAS' ? 'selected' : '' }}>
+                                                Pasaporte
+                                            </option>
+                                        </select>
+                                        @error('Tipo_Doc')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Número de Documento --}}
+                                    <div>
+                                        <label for="documento" class="block text-sm font-medium mb-1">
+                                            Número de Documento
+                                        </label>
+                                        <input type="text" 
+                                               name="documento" 
+                                               id="documento" 
+                                               value="{{ old('documento') }}"
+                                               class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                                        @error('documento')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Rol --}}
+                                    <div>
+                                        <label for="id_rol" class="block text-sm font-medium mb-1">
+                                            Rol
+                                        </label>
+                                        <select name="id_rol" 
+                                                id="id_rol" 
+                                                class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                                            <option value="">Sin rol asignado</option>
+                                            @foreach($roles as $rol)
+                                                <option value="{{ $rol->id_rol }}" 
+                                                        {{ old('id_rol') == $rol->id_rol ? 'selected' : '' }}>
+                                                    {{ $rol->nombre_rol }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_rol')
+                                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                </div>
+
+                                {{-- BOTONES --}}
+                                <div class="pt-4 flex gap-3">                                    
+                                    <button type="submit" 
+                                            class="px-6 py-2 border rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                                        💾 Guardar Usuario
+                                    </button>
+
+                                    <a href="{{ route('usuarios.index') }}"
+                                       class="px-6 py-2 border rounded bg-gray-500 text-white hover:bg-gray-600 transition">
+                                        ❌ Cancelar
+                                    </a>
+                                </div>
+                            </form>
+                            {{-- FIN FORMULARIO --}}
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <style>
-    body .input {
-        background-color: #32373dff !important; /* negro absoluto */
-        color: white; /* texto blanco para contraste */
-    }
-    
-    img{
-        width: 50px;
-        height: 50px;
-    }
-    /* Opcional: Cambiar fondo de los contenedores a negro */
-    .bg-white {
-        background-color: #32373dff !important;
-        color: white;
-    }
-    input{
-        color: black;
-    }
+    </div>
 
-    .text-gray-800 {
-        color: #fff !important;
-    }
-</style>
-    </x-app-layout>
+    <style>
+        body {
+            background-color: #32373dff !important;
+            color: white;
+        }
+        
+        .bg-white {
+            background-color: #32373dff !important;
+            color: white;
+        }
+        
+        input, select {
+            color: black !important;
+            background-color: white !important;
+        }
+
+        .text-gray-800 {
+            color: #fff !important;
+        }
+
+        label {
+            color: #e5e7eb !important;
+        }
+    </style>
+</x-app-layout>

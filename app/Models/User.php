@@ -5,41 +5,37 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'users';
-    protected $primaryKey = 'id';
+    protected $table = 'usuarios';
+    protected $primaryKey = 'id_usuario';
     public $timestamps = true;
 
     protected $fillable = [
         'nombre',
         'apellidos',
-        'email',
+        'correo',
+        'contraseña',
         'telefono',
-        'tipo_documento',
-        'numero_identificacion',
-        'genero',
-        'password',
-        'id_rol'
+        'Tipo_Doc',
+        'documento',
+        'id_rol',
     ];
 
     protected $hidden = [
-        'password',
+        'contraseña',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // Para que Laravel use el campo correcto de contraseña
+    public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
 
     public function rol()
     {

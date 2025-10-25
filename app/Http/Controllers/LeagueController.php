@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class LeagueController extends Controller
 {
+    // Mostrar todas las ligas
     public function index()
     {
         $ligas = Liga::with('temporada')->paginate(6);
         return view('ligas.index', compact('ligas'));
     }
 
+    // Mostrar una liga específica
     public function show($id)
     {
         $liga = Liga::with(['temporada', 'partidos.local', 'partidos.visitante', 'tablaPosiciones.equipo'])
@@ -24,13 +26,11 @@ class LeagueController extends Controller
 
     // =================== CRUD ===================
 
-    
     public function manage()
     {
-        $ligas = Liga::all(); // 👈 usa el modelo correcto
+        $ligas = Liga::with('temporada')->get();
         return view('ligas.manage', compact('ligas'));
     }
-
 
     public function create()
     {
@@ -48,13 +48,14 @@ class LeagueController extends Controller
 
         Liga::create($request->all());
 
-        return redirect()->route('ligas.index')->with('success', 'Liga creada correctamente.');
+        return redirect()->route('ligas.manage')->with('ok', 'Liga creada correctamente.');
     }
 
     public function edit($id)
     {
         $liga = Liga::findOrFail($id);
         $temporadas = Temporada::all();
+
         return view('ligas.edit', compact('liga', 'temporadas'));
     }
 
@@ -65,13 +66,12 @@ class LeagueController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'id_deporte' => 'required|integer',
             'id_temporada' => 'required|exists:temporadas,id_temporada',
         ]);
 
         $liga->update($request->all());
 
-        return redirect()->route('ligas.index')->with('success', 'Liga actualizada correctamente.');
+        return redirect()->route('ligas.manage')->with('ok', 'Liga actualizada correctamente.');
     }
 
     public function destroy($id)
@@ -79,7 +79,6 @@ class LeagueController extends Controller
         $liga = Liga::findOrFail($id);
         $liga->delete();
 
-        return redirect()->route('ligas.index')->with('success', 'Liga eliminada correctamente.');
+        return redirect()->route('ligas.manage')->with('ok', 'Liga eliminada correctamente.');
     }
 }
-
